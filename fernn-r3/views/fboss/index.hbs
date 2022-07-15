@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <a href="/logout">Logout</a>
+    <h1>Firmy</h1>
+    <table>
+        <form action="/f/insert/firma" method="POST">
+            <tr>
+                <td>ID</td>
+                <td><input type="text" name="nazwa" placeholder="Nazwa"></td>
+                <td><input type="text" name="nip" placeholder="NIP"></td>
+                <td><input type="number" name="tel" placeholder="Telefon"></td>
+                <td><input type="text" name="email" placeholder="Email"></td>
+                <td><input type="text" name="adres" placeholder="Adres"></td>
+                <td><input type="text" name="imie" placeholder="Imie"></td>
+                <td><input type="text" name="nazwisko" placeholder="Nazwisko"></td>
+                <td><input type="date" name="start"></td>
+                <td><input type="date" name="koniec"></td>
+                <td><input type="text" name="plan" placeholder="Plan"></td>
+                <td><input type="text" name="konta" placeholder="Ile kont"></td>
+                <td><input type="text" name="raporty" placeholder="Raporty"></td>
+                <td><input type="text" name="zalaczniki" placeholder="Zalaczniki"></td>
+                <td><input type="text" name="powiadomienia" placeholder="Powiadomienia"></td>
+                <td><input type="text" name="reklamacje" placeholder="Reklamacje"></td>
+                <td><input type="submit" value="Dodaj"></td>
+            </tr>
+        </form>
+        {{#each Company}}
+            <tr>
+                <td>{{ _ID }}</td>
+                <td>{{ Name }}</td>
+                <td>{{ NIP }}</td>
+                <td>{{ Phone }}</td>
+                <td>{{ Email }}</td>
+                <td>{{ Adress }}</td>
+                <td><a href="f/edit?CID={{ _ID }}">Edytuj</a></td>
+            </tr>
+        {{/each}}
+    </table>
+    
+    <h1>Status</h1>
+    <table>
+        <form action="/f/insert/status" method="POST">
+            <tr>
+                <td>ID</td>
+                <td><input type="text" name="nazwa" placeholder="nazwa"></td>
+                <td><input type="text" name="wartosc" placeholder="wartosc"></td>
+                <td><input type="submit" value="Dodaj"></td>
+            </tr>
+        </form>
+
+        {{#each Status}}
+            <form action="/f/update/status" method="POST">
+                <tr>
+                    <td><input type="text" name="SID" value="{{ _ID }}"></td>
+                    <td><input type="text" name="nazwa" placeholder="nazwa" value="{{ Status }}"></td>
+                    <td><input type="text" name="wartosc" placeholder="wartosc" value="{{ Value }}"></td>
+                    <td><input type="submit" value="Zapisz"></td>
+                </tr>
+            </form>
+        {{/each}}
+    </table>
+
+    <h1>Producenci</h1>
+    <table>
+        <form action="/f/insert/producent" method="POST">
+            <tr>
+                <td><input type="text" name="producent" placeholder="nazwa"></td>
+                <td><input type="submit" value="Dodaj"></td>
+            </tr>
+        </form>
+    </table>
+    <a href="/f/list/manufacturers">Zobacz wszystkich producentów</a>
+
+
+    <h1>Modele</h1>
+    <table>
+        <form action="/f/insert/model" method="POST">
+            <tr>
+                <td>ID</td>
+                <td>
+                    <input type="text" name="producent" placeholder="Producent" list="producenci">
+                    <datalist id="producenci">
+                        {{#each Manufacturers}}
+                            <option>{{ Manufacturer }}</option>
+                        {{/each}}
+                    </datalist>
+                </td>
+                <td><input type="text" name="nazwa" placeholder="Model"></td>
+                <td><input type="submit" value="Dodaj"></td>
+            </tr>
+        </form>
+    </table>
+    <a href="/f/list/model">Zobacz wszystkie modele</a>
+
+    <h1>Wiadomości</h1>
+    <table>
+        <form action="/f/insert/message" method="POST">
+                <tr>
+                    <td></td>
+                    <td><input type="text" name="Temat" placeholder="Temat"></td>
+                    <td><textarea type="text" name="Tresc" placeholder="Tresc"></textarea></td>
+                    <td><input type="number" name="Important" placeholder="Important"></td>
+                    <td><input type="number" name="Warning" placeholder="Warning"></td>
+                    <td><input type="date" name="do"></td>
+                    <td><input type="submit" value="Dodaj"></td>
+                </tr>
+            </form>
+        {{#each Message}}
+            <form action="/f/update/message" method="POST">
+                <tr>
+                    <td><input type="text" name="id" value="{{ _ID }}"></td>
+                    <td><input type="text" name="Temat" placeholder="Temat" value="{{ Title }}"></td>
+                    <td><textarea type="text" name="Tresc" placeholder="Tresc">{{ Content }}</textarea></td>
+                    <td><input type="number" name="Important" placeholder="Important"  value="{{ Important }}"></td>
+                    <td><input type="number" name="Warning" placeholder="Warning"  value="{{ Warning }}"></td>
+                    <td><input type="date" name="do"  value="{{ End_date }}"></td>
+                    <td><input type="submit" value="Zapisz"></td>
+                </tr>
+            </form>
+        {{/each}}
+    </table>
+</body>
+</html>

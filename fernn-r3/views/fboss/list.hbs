@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <a href="/f">Powrót</a>
+    {{#if model}}
+        <h1>Modele</h1>
+        <table>
+            {{#each Data}}
+                <form action="/f/update/model" method="POST">
+                    <tr>
+                        <td><input type="text" value="{{ _ID }}" name="MID"></td>
+                        <td><input type="text" value="{{ Manufacturer }}" name="producent"></td>
+                        <td><input type="text" value="{{ Model }}" name="model"></td>
+                        <td><input type="text" value="{{ State }}" name="stan"></td>
+                        <td><input type="submit" value="Zapisz"></td>
+                    </tr>
+                </form>
+            {{/each}}
+        </table>
+    {{/if}}
+
+    {{#if manufacter}}
+        <h1>Producenci</h1>
+        <table>
+            {{#each Data}}
+                <form action="/f/update/manufacturers" method="POST">
+                    <tr>
+                        <td><input type="text" value="{{ _ID }}" name="MID"></td>
+                        <td><input type="text" value="{{ Manufacturer }}" list="producenci" name="producent"></td>
+                        <td><input type="text" value="{{ State }}" name="stan"></td>
+                        <td><input type="submit" value="Zapisz"></td>
+                    </tr>
+                </form>
+            {{/each}}
+        </table>
+    {{/if}}
+    
+</body>
+</html>

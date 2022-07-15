@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="pl/PL" class="no-js">
+<head >
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/img/logo.png">
+    <title>Fernn</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/public.css">
+
+    <style>
+        body{
+            overflow-x: hidden;
+        }
+        .work{
+            position:fixed;
+            bottom: 0;
+            background-color: #0275d8;
+            width: 90%;
+            margin-left: 5%;
+            margin-right: 5%;
+            padding: 15px;
+            box-sizing: border-box;
+            border-top-left-radius: 15px;
+            border-top-right-radius: 15px;
+            text-align: center;
+        }
+        .work > a{
+            background-color: white;
+            color: #0275d8;
+            font-size: 35px;
+            border: 2px solid white;
+        }
+        .work > a:hover{
+            background-color: #0275d8;
+            border-radius: 5px;
+            border: 2px solid white;
+        }
+    </style>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init();
+      </script>
+</head>
+<body>
+    <div class="all">
+        <div id="TopPoint"></div>
+        <div class="d-md-none">
+            <nav class="navbar navbar-expand-lg navbar-light ">
+                <div class="container-fluid">
+                    <a class="navbar-brand">Fernn</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page">Home</a>
+                            </li>
+                            {{#if Work}}
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/status?Work=true">Sprawdź status</a>
+                                </li>
+                                {{else}}
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="/status">Sprawdź status</a>
+                                    </li>
+                            {{/if}}
+                            {{!-- <li class="nav-item">
+                                <a class="nav-link" href="#onas">O nas</a>
+                            </li> --}}
+                            <li class="nav-item">
+                                <a class="nav-link" href="#oferta">Oferta</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#kontakt">Kontakt</a>
+                            </li>
+                            <a class="btn btn-primary" href="/login">Zaloguj się</a>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
+        <div class="nav d-none d-md-block">
+            <nav class="navbar navbar-expand-lg navbar-light ">
+                <div class="container-fluid">
+                    <a class="navbar-brand">Fernn</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page">Home</a>
+                            </li>
+                            {{#if Work}}
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/status?Work=true">Sprawdź status</a>
+                                </li>
+                                {{else}}
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="/status">Sprawdź status</a>
+                                    </li>
+                            {{/if}}
+                            {{!-- <li class="nav-item">
+                                <a class="nav-link" href="#onas">O nas</a>
+                            </li> --}}
+                            <li class="nav-item">
+                                <a class="nav-link" href="#oferta">Oferta</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#kontakt">Kontakt</a>
+                            </li>
+                        </ul>
+                        {{#if Work}}
+                                <a class="btn btn-primary b-flex" href="/a/home">Powrót do pracy</a>
+                            {{else}}
+                                <a class="btn btn-primary b-flex" href="/login">Zaloguj się</a>
+                        {{/if}}
+                    </div>
+                </div>
+            </nav>
+        </div>
+        <div class="content">
+            <div class="TopMargins">
+                <div class="row">
+                    <div class="col-12 col-lg-6 Top" data-aos="fade-right" data-aos-duration="1250" data-aos-once="true">
+                        <h1 class="d-inline ">Obsługuj reklamacje <br></h1>
+                        <h1 id="inserttext" class="d-inline WrittenText"></h1>
+                        <h1 class="typed-cursor d-inline WrittenText">|</h1>
+                        <p class="mt-3">Program do obsługi reklamacji pozwala na kompletną realizację procesu reklamacyjnego i wspiera komunikację z klientem.</p>
+                        <a class="btn btn-primary btn-lg btn-block mt-2" href="/start">Załóż darmowe konto</a>
+                    </div>
+                    <div class="col-12 col-lg-6 Top" data-aos="fade-left" data-aos-duration="1250" data-aos-once="true">
+                        <h1>Jeżli masz już reklamację możesz sprawdzić jej status</h1>
+                        <form class="Status" action="/status">
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control" placeholder="Nr. reklamacji" name="code" >
+                            </div>
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control" placeholder="Pin" name="pin">
+                            </div>
+                            <input type="submit"  class="btn btn-primary btn-lg btn-block" value="Sprawdź status reklamacji">
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="margins">
+                <div class="m-5">
+                    <div class="row">
+                        <h3 data-aos="fade-up">Profesjonalny program do obsługi reklamacji</h3>
+                        <p data-aos="fade-up">Poznaj podstawowe funkcje programu do obsługi serwisu online</p>
+                        <div class="col-md-6 col-12 SystemOptions" data-aos="fade-up" data-aos-easing="ease-in" data-aos-once="true">
+                            <img src="https://img.icons8.com/color/48/000000/available-updates.png"/>
+                            <h6>Dostępność</h6>
+                            <p>System reklamacji online dostępny 24h na dobę, 7 dni w tygodniu.</p>
+                        </div>
+                        <div class="col-md-6 col-12 SystemOptions" data-aos="fade-up" data-aos-easing="ease-in" data-aos-once="true">
+                            <img src="https://img.icons8.com/color/48/000000/business-report.png"/>
+                            <h6>Raporty</h6>
+                            <p>Podsumowanie wszystkich danych w czytelnych tabelach i wykresach.</p>
+                        </div>
+                        <div class="col-md-6 col-12 SystemOptions" data-aos="fade-up" data-aos-easing="ease-in" data-aos-once="true">
+                            <img src="https://img.icons8.com/color/48/000000/circled-envelope.png"/>
+                            <h6>Powiadomienia</h6>
+                            <p>Automatyczne i ręczne powiadomienia wysyłane do Klienta informujące o statusie reklamacji.</p>
+                        </div>
+                        <div class="col-md-6 col-12 SystemOptions" data-aos="fade-up" data-aos-easing="ease-in" data-aos-once="true">
+                            <img src="https://img.icons8.com/color/48/000000/web-design.png"/>
+                            <h6>Obsługa zleceń online</h6>
+                            <p>Proste zarządzanie reklamacjami i zwrotami odbywające się bez konieczności instalacji programu. </p>
+                        </div>
+                        <div class="col-md-6 col-12 SystemOptions" data-aos="fade-up" data-aos-easing="ease-in" data-aos-once="true">
+                            <img src="https://img.icons8.com/color/48/000000/cloud-link.png"/>
+                            <h6>Załączniki</h6>
+                            <p>Możliwość dodawania załączników do reklamacji w celu dokumentacji stanu reklamowanego pruduktu.</p>
+                        </div>
+                        <div class="col-md-6 col-12 SystemOptions" data-aos="fade-up" data-aos-easing="ease-in" data-aos-once="true">
+                            <img src="https://img.icons8.com/color/48/000000/refresh-shield.png"/>
+                            <h6>Bezpieczeństwo</h6>
+                            <p>Szyfrowanie wszystkich danych wrażliwych. Dostęp do systemu tylko dla zalogowanych Użytkowników.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="margins">
+                    <div class="row">
+                    <h6 data-aos="fade-up" data-aos-once="true">DOSTĘPNE PANELE</h6>
+                    <h2 data-aos="fade-up" data-aos-once="true">Jeden system - trzy panele</h2>
+                    <div class="col-11 m-auto col-md-4 mt-2" data-aos="fade-up" data-aos-once="true">
+                        <div class="panel">
+                            <img src="https://img.icons8.com/color/48/000000/human-head.png"/>
+                            <br><br>
+                            <h4>Panel klienta</h4>
+                            <p>Umożliwij klientowi samodzielne sprawdzanie statusu. Zaoszczędzi to czas nietylko klientowi ale i firmie.</p>
+                        </div>
+                    </div>
+                    <div class="col-11 m-auto col-md-4 mt-2" data-aos="fade-up" data-aos-once="true">
+                        <div class="panel">
+                            <img src="https://img.icons8.com/color/48/000000/worker-male.png"/>
+                            <br><br>
+                            <h4>Panel pracownika</h4>
+                            <p>Ogranicz dostęp dla pracowników. Pracownik będzie mógł dodawać i edytować reklamacje, które niesą zamknięte.</p>
+                        </div>
+                    </div>
+                    <div class="col-11 m-auto col-md-4 mt-2" data-aos="fade-up" data-aos-once="true">
+                        <div class="panel">
+                            <img src="https://img.icons8.com/color/48/000000/admin-settings-male.png"/>
+                            <br><br>
+                            <h4>Panel administratora</h4>
+                            <p>Przejmij całą kontrolę nad firmą. Dodawaj pracowników i reklamacje, edytuj statusy nawet zamkniętych reklamacji i zobacz statystyki firmy.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="margins d-none d-md-block">
+                <div class="row">
+                    <div class="col-12 col-lg-7 mb-3">
+                        <img src="/img/logo.png" data-aos="fade-up" data-aos-once="true">
+                    </div>
+                    <div class="col-12 col-lg-5">
+                        <h3 data-aos="zoom-in-up" data-aos-once="true">Nie trać czasu i sprawdź nasze rozwiązanie już teraz</h3>
+                        <p data-aos="zoom-in-up" data-aos-once="true">Aktywuj system za darmo i otrzymaj bezpłatny 14-dniowy dostęp do systemu.</p>
+                        <p data-aos="zoom-in-up" data-aos-once="true">Sprawdź i przetestuj nasze rozwiązanie. System po aktywacji jest skonfigurowany i gotowy do pracy. Masz jednak możliwość dostosowania ustawień do swoich potrzeb, by móc jeszcze wygodniej korzystać z systemu.</p>
+                        <p data-aos="zoom-in-up" data-aos-once="true">Po okresie próbnym możesz korzystać z systemu zamawiając abonament na kolejny okres.</p>
+                        <a data-aos="zoom-in-up" class="btn btn-primary" href="/start"  data-aos-once="true">Testuj za darmo</a>
+                    </div>
+                </div>
+            </div>
+            {{!-- <div class="margins">
+                <div class="row" id="onas">
+                    <div class="col-12 col-md-6">
+                        <h3>O nas</h3>
+                        <p></p>
+                        <p></p>
+                        <p></p>
+                    </div>
+                    <div class="d-none d-md-block col-6"><img src="https://iv.pl/images/e7a208da6786e81fa4d7efffdb4be53c.jpg" alt="e7a208da6786e81fa4d7efffdb4be53c.jpg" class="img"></div>
+                </div>
+            </div> --}}
+            <div class="Tables mt-5">
+                <div class="row" id="oferta">
+                    <div class="col-12">
+                        <h3 data-aos="zoom-in-up" data-aos-once="true">Podstawowa oferta</h3>
+                        <table class="table" data-aos="flip-up" data-aos-once="true">
+                            <thead>
+                                <th></th>
+                                <th>Plan basic</th>
+                                <th>Plan standard</th>
+                                <th>Plan pro</th>
+                                <th>Plan Custom</th>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Kompleksowa obsługa reklamacji</td>
+                                    <td><img src="https://img.icons8.com/color/48/000000/checked--v4.png"/></td>
+                                    <td><img src="https://img.icons8.com/color/48/000000/checked--v4.png"/></td>
+                                    <td><img src="https://img.icons8.com/color/48/000000/checked--v4.png"/></td>
+                                    <td><img src="https://img.icons8.com/color/48/000000/checked--v4.png"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Ilość kont użytkowników</td>
+                                    <td class="GreenColor">2</td>
+                                    <td class="GreenColor">20</td>
+                                    <td class="GreenColor">Bez limitu</td>
+                                    <td class="GreenColor">Sam określasz</td>
+                                </tr>
+                                <tr>
+                                    <td>Raporty</td>
+                                    <td><img src="https://img.icons8.com/color/48/000000/delete-sign--v1.png"/></td>
+                                    <td class="GreenColor">Od 01-07-2021</td>
+                                    <td class="GreenColor">Od 01-07-2021</td>
+                                    <td class="GreenColor">Od 01-07-2021</td>
+                                    {{!-- <td><img src="https://img.icons8.com/color/48/000000/checked--v4.png"/></td> --}}
+                                    {{!-- <td><img src="https://img.icons8.com/color/48/000000/checked--v4.png"/></td> --}}
+                                </tr>
+                                <tr>
+                                    <td>Załączniki</td>
+                                    <td><img src="https://img.icons8.com/color/48/000000/delete-sign--v1.png"/></td>
+                                    <td class="GreenColor">2 pliki/reklamacja</td>
+                                    <td class="GreenColor">5 plików/reklamacja</td>
+                                    <td class="GreenColor">Sam określasz</td>
+                                </tr>
+                                <tr>
+                                    <td>Powiadomienia dla klienta</td>
+                                    <td><img src="https://img.icons8.com/color/48/000000/delete-sign--v1.png"/></td>
+                                    <td><img src="https://img.icons8.com/color/48/000000/checked--v4.png"/></td>
+                                    <td><img src="https://img.icons8.com/color/48/000000/checked--v4.png"/></td>
+                                    <td class="GreenColor">Sam określasz</td>
+                                </tr>
+                                <tr>
+                                    <td>Limit reklamacji</td>
+                                    <td class="GreenColor">100/rok</td>
+                                    <td class="GreenColor">1000/rok</td>
+                                    <td class="GreenColor">10000/rok</td>
+                                    <td class="GreenColor">Sam określasz</td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td></td>
+                                    <td><a class="btn btn-primary" href="/start">Wybierz pakiet</a></td>
+                                    <td><a class="btn btn-primary" href="/start">Wybierz pakiet</a></td>
+                                    <td><a class="btn btn-primary" href="/start">Wybierz pakiet</a></td>
+                                    <td><a class="btn btn-primary" href="/start">Wybierz pakiet</a></td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="margins mb-5" data-aos="fade-up" data-aos-once="true">
+                <div class="row" id="kontakt">
+                    <div class="col-12">
+                        <h3>Kontakt</h3>
+                        <table class="table table-striped">
+                            <tr>
+                                <th>E-mail</th>
+                                <td>kontakt@fernn.pl</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="bg-primary">
+            &copy;Fernn
+        </footer>
+        {{#if Work}}
+            <div class="work col-11">
+                <a href="/a/home" class="btn btn-outline-primary">Powrót do panelu Home</a>
+            </div>
+        {{/if}}
+        <a href="#TopPoint">
+            <div class="top ToTop" id="ToTop">
+                <img src="https://img.icons8.com/fluent-systems-regular/24/000000/long-arrow-up.png"/>
+            </div>
+        </a>
+    </div>
+    <div style="display: none;">
+        <a href="https://icons8.com/">Grafika pochodi z strony</a>
+    </div>
+    <script>
+        var tab=["szybko.", "bezpiecznie.", "profesjonalnie."];
+
+        function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+
+        async function pisz() {
+            for(var c=0; c<tab.length; c++){
+                var dl=tab[c].length;
+
+                for(var b=1;b<dl;b++)
+                {
+                    writte(tab[c].substring(0,b));
+                    await sleep(200);
+                }
+
+                writte(tab[c])
+                await sleep(1000);
+
+                for(var b=dl;b>=0;b--)
+                {
+                    writte(tab[c].substr(0,b));
+                    await sleep(100);
+                }
+            }
+            await sleep(200);
+            pisz();
+        }
+
+        function writte(text)
+        {
+            document.getElementById("inserttext").innerHTML=text;
+        }
+
+        pisz();
+    </script>
+    <script>
+        const ToTop = document.getElementById("ToTop");
+        window.onscroll = function() {scrollFunction()};
+
+        function scrollFunction() {
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                ToTop.style.display = "block";
+            } else {
+                ToTop.style.display = "none";
+            }
+        }
+        function topFunction() {
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+        }
+    </script>
+    <script>
+      document.querySelector('html').classList.remove('no-js');
+      if (!window.Cypress) {
+        AOS.init({
+          mirror: true
+        });
+
+        document.addEventListener('aos:in', function(e) {
+          console.log('in!', e.detail);
+        });
+      }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+</body>
+
+</html>

@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <link rel="icon" href="/img/logo.png">
+    <title>Fernn - Pomieszane kolory</title>
+    <style>
+        *{
+            max-width: 100%; 
+            box-sizing: border-box;
+        }
+        .game{
+            height: 100%;
+        }
+        .start{
+            margin: auto;
+            text-align: center;
+        }
+        .dnone{
+            display: none;
+        }
+        .tak{
+            background-color: green;
+        }
+        .nie{
+            background-color: red;
+        }
+        .odpowiedzi{
+            padding: 20px;
+            font-size: 50px;
+            color:white;
+            text-align: center;
+        }
+        .gblock{
+            max-width: 300px;
+            margin: auto;
+            text-align: center;
+            margin-bottom: 200px;
+            background-color: white;
+            border: 3px solid #2e2e2e;
+            border-radius: 10px;
+        }
+        #kolor{
+            width: 100%;
+            height: 200px;
+        }
+        #tekst{
+            font-size: 30px;
+            padding: 10px;
+        }
+        .info{
+            font-size: 20px;
+            text-align: center;
+        }
+        #zycia{
+            text-align: center;
+        }
+        @media (min-width: 768px) {
+            .info{
+                position: fixed;
+                left: 0px;
+            }
+            #zycia{
+                position: fixed;
+                right: 0px;
+            } 
+        }
+        h2[class=start]{
+            color: red;
+            font-size: 50px;
+        }
+
+        #odliczanie{
+            text-align: center;
+            margin-top: 20%;
+            font-size: 100px;
+        }
+
+        .koniec{
+            text-align: center;
+            margin-top: 20%;
+        }
+
+        .red{
+            background-color: red;
+        }
+        .blue{
+            background-color: blue;
+        }
+        .green{
+            background-color: green;
+        }
+        .pink{
+            background-color: pink;
+        }
+        .yellow{
+            background-color: yellow;
+        }
+        .black{
+            background-color: black;
+        }
+
+
+        h1{
+            color: #3d3d3d;
+        }
+    </style>
+</head>
+<body>
+    <div class="all">
+        <div class="content">
+            {{!-- <div class="start dnone"> --}}
+            <div class="start">
+                <br><br>
+                <h1>Pomieszane kolory</h1>
+                <h2 onclick="start()" class="start">Start!</h2>
+                <br><br>
+                <p>
+                    <h3>Cel gry:</h3>
+                    Gra opiera się na potwierdzenie lub zaprzeczenie zgodności treści napisu z kolorem bloku poniżej.<br><br>
+                    Sterowanie: <br>
+                    -zatwierdzanie - przycisk "TAK" lub klawisz "1"<br>
+                    -zaprzeczanie - przycisk"NIE" lub klawisz "3"
+                </p>
+            </div>
+            <div id="odliczanie"></div>
+            <div class="game dnone">
+                <div class="col-13">
+                    <div id="zycia">
+                        <span><img id="s1" src="https://img.icons8.com/color/48/000000/like--v3.png"/></span>
+                        <span><img id="s2" src="https://img.icons8.com/color/48/000000/like--v3.png"/></span>
+                        <span><img id="s3" src="https://img.icons8.com/color/48/000000/like--v3.png"/></span>
+                        <span><img id="s4" src="https://img.icons8.com/color/48/000000/like--v3.png"/></span>
+                        <span><img id="s5" src="https://img.icons8.com/color/48/000000/like--v3.png"/></span>
+                    </div>
+                    <div class="info">
+                        <div id="zostalo"></div>
+                        <div id="punkty">Zdobyto 0 punkty</div>
+                    </div>
+                    <br>
+                    <div class="gblock">
+                        <span id="tekst"></span>
+                        <div class="kolor">
+                            <div id="kolor"></div>
+                        </div>
+                    </div>
+                    <div class="odp fixed-bottom">  
+                        <div class="row mx-auto">
+                            <div class="odpowiedzi tak col-12 col-md-6" onclick="sprawdz(1)">TAK</div>
+                            <div class="odpowiedzi nie col-12 col-md-6" onclick="sprawdz(0)">NIE</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{!-- <div class="koniec"> --}}
+            <div class="koniec dnone">
+                <form action="/g/savescore" method="POST">
+                    <h1>Koniec gry</h1>
+                    <input type="hidden" name="score" id="score" value="0">
+                    <input type="hidden" name="game" value="Colors">
+                    <input type="hidden" name="nick" value="{{ Nick }}">
+                    <input type="submit" class="btn btn-primary mt-3" value="Zobacz wyniki">
+                </form>
+            </div>
+        </div>
+    </div>
+    <div style="display: none;">
+        <a href="https://icons8.com/">Grafika pochodi z strony</a>
+    </div>
+    <script>
+        var opcje=['red', 'blue', 'green', 'black', 'yellow'];
+        var napisy=['czerwony', 'niebieski', 'zielony', 'czarny', 'żółty'];
+
+        var pozostalo = 0;
+        var punkty = 0;
+        var zycia=5;
+        var kon=false;
+        var liczba = 3;
+
+        var napis="";
+        var tekst="";
+        var kolor="";
+        var odp=true;
+
+        var onKeyDown = function (ev) {
+            var keyCode = ev.keyCode;
+            switch(ev.keyCode){
+                case 49:
+                    sprawdz(1);
+                    break;
+                case 51:
+                    sprawdz(0);
+                    break;
+                default:
+                    break;
+            }
+        };
+
+        document.addEventListener('keypress', onKeyDown);
+
+        function start() {
+            liczba=3;
+            pozostalo=60;
+            punkty=0;
+            zycia=5;
+            zacznij_odliczac();
+            document.querySelector(".start").classList.add("dnone");
+            document.querySelector("#odliczanie").classList.remove("dnone");
+        }
+
+        function zacznij_odliczac()
+        {
+            document.getElementById("odliczanie").innerHTML = liczba;
+            liczba = liczba-1;
+
+            if(liczba<0){
+                star();
+            } else{
+            setTimeout("zacznij_odliczac()",1000);
+            }
+        }
+
+        function star(){
+            document.querySelector("#odliczanie").classList.add("dnone");
+            document.getElementById("punkty").innerHTML="Zdobyto 0 punkty";
+            document.querySelector(".start").classList.add("dnone");
+            document.querySelector(".game").classList.remove("dnone");
+            odliczaj();
+            losuj();
+        }
+
+        function losuj() {
+            var dlugosctablicy=opcje.length;
+
+            document.getElementById("kolor").classList.remove(opcje[kolor]);
+            
+            wylosowano = getRandomInt(0,2); 
+            if(wylosowano==1){
+                tekst = getRandomInt(0,dlugosctablicy);
+                kolor = tekst;
+                odp=true;
+            }else{
+                console.log("różne");
+                tekst = getRandomInt(0,dlugosctablicy);
+                kolor = getRandomInt(0,dlugosctablicy);
+                for(var a; tekst==kolor; a++)
+                {
+                    kolor = getRandomInt(0,dlugosctablicy);
+                }
+                odp=false;             
+            }
+            wylosowano = getRandomInt(0,3);
+            if(wylosowano==1){
+                napis=kolor;
+            }else{
+                napis = getRandomInt(0,dlugosctablicy);
+                for(var a; napis==kolor; a++)
+                {
+                    napis = getRandomInt(0,dlugosctablicy);
+                }           
+            }
+            document.getElementById("kolor").classList.add(opcje[kolor]);
+            document.getElementById("tekst").innerHTML=napisy[tekst];
+            document.getElementById("tekst").style.color=opcje[napis];
+        }
+
+        function sprawdz(podanaodp) {
+            if(podanaodp==1){pododp=true;}else{pododp=false;}
+            if(pododp==odp)
+            {
+                punkty++;
+            }else{
+                punkty-=2;
+                odejzycia();
+            }
+            losuj();
+
+            document.getElementById("punkty").innerHTML="Zdobyto "+punkty+" punkty";
+        }
+ 
+        function koniec(){
+            document.querySelector(".game").classList.add("dnone");
+            document.querySelector(".koniec").classList.remove("dnone");
+            document.getElementById("score").value=punkty;
+            kon=true;
+        }
+
+        function odejzycia(){
+            var serce="s"+zycia;
+            
+            document.getElementById(serce).classList.add("dnone");
+            zycia--;
+            if(zycia<=0)
+            {
+                koniec();
+            }
+            if(zycia<=3){
+                document.getElementById("s1").src="https://img.icons8.com/ios-filled/48/000000/like--v2.png";
+                document.getElementById("s2").src="https://img.icons8.com/ios-filled/48/000000/like--v2.png";
+                document.getElementById("s3").src="https://img.icons8.com/ios-filled/48/000000/like--v2.png";
+            }
+        }
+
+        function getRandomInt(min, max) {
+            min = Math.ceil(min);
+            max = Math.floor(max);
+            return Math.floor(Math.random() * (max - min)) + min;
+        }
+
+        function odliczaj() {
+            pozostalo--;
+            if(pozostalo>0 && kon==false)
+            {
+                document.getElementById("zostalo").innerHTML = "Pozostały czas: "+pozostalo;
+                setTimeout("odliczaj()", 1000); 
+            }else{
+                if(kon==false){
+                    koniec();
+                }
+            }
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="pl/PL">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <a href="/f">Powrót</a>
+    <h1>Dane podstawowe</h1>
+    <table>
+        {{#each Podastawowe}}
+            <form action="/f/edit/company/update" method="POST">
+                <tr>
+                    <td><input type="text" name="CID" value="{{ _ID }}"></td>
+                    <td><input type="text" name="Name" value="{{ Name }}"></td>
+                    <td><input type="text" name="NIP" value="{{ NIP }}"></td>
+                    <td><input type="text" name="Email" value="{{ Email }}"></td>
+                    <td><input type="text" name="Phone" value="{{ Phone }}"></td>
+                    <td><input type="text" name="Adress" value="{{ Adress }}"></td>
+                    <td><input type="submit" value="Zapisz"></td>
+                </tr>
+            </form>
+        {{/each}}
+    </table>
+
+    <script>
+        function reklamacje(rodzaj){
+            var rekla = document.getElementById("reklamacje");
+            if(rodzaj==1){
+            rekla.style.display = "block";
+            }else{
+        
+                rekla.style.display = "none";
+            }
+        }
+    </script>
+
+    <h1>Reklamacje</h1>
+    <button onclick="reklamacje(1)">Pokarz reklamacje</button>
+    <button onclick="reklamacje(2)">Ukryj reklamacje</button>
+    <table id="reklamacje" style="display: none;">
+        <tr>
+            <th>Imie</th>
+            <th>Nazwisko</th>
+            <th>Telefon</th>
+            <th>Opis</th>
+            <th>Nr. seryjny</th>
+            <th>Nr. zakupu</th>
+            <th>Typ</th>
+            <th>Uwagi</th>
+            <th>Kod</th>
+            <th>Pin</th>
+            <th>Nr. rekla</th>
+            <th>Data zakupu</th>
+            <th>Data uszkodzenia</th>
+            <th>Status</th>
+            <th>Model</th>
+            <th>Producent</th>
+        </tr>
+        <tr>
+            <form method="POST" action="/f/edit/reklamacje/insert">
+                <td><input type="text" name="Firstname"></td>
+                <td><input type="text" name="Lastname"></td>
+                <td><input type="text" name="Phone"></td>
+                <td><input type="text" name="Description"></td>
+                <td><input type="text" name="Serial_no"></td>
+                <td><input type="text" name="Purchase_number"></td>
+                <td><input type="text" name="Type"></td>
+                <td><input type="text" name="Comments"></td>
+                <td><input type="text" name="Code" disabled></td>
+                <td><input type="text" name="Pin" disabled></td>
+                <td><input type="text" name="Complaint_number" disabled></td>
+                <td><input type="datetime-local" name="Purchase_date"></td>
+                <td><input type="date" name="Damage_date"></td>
+                <td>
+                    <input type="text" name="Status" required list="status">
+                    <datalist id="status">
+                        {{#each Status}}
+                            <option>{{ Status }}</option>
+                        {{/each}}
+                    </datalist>
+                </td>
+                <td>
+                    <input type="text" name="Model" required list="modele">
+                    <datalist id="modele">
+                        {{#each Modele}}
+                            <option value="{{ Model }}">{{ Manufacturer }}</option>
+                        {{/each}}
+                    </datalist>
+                </td>
+                <input type="hidden" value="{{ CID }}" name="CID">
+                <td><input type="submit" value="Dodaj"></td>
+            </form>
+        </tr>
+        {{#each Reklamacje}}
+            <form action="/f/edit/reklamacje/update" method="POST">
+                <tr>
+                    <td><input type="text" name="Firstname" value="{{ Firstname }}"></td>
+                    <td><input type="text" name="Lastname" value="{{ Lastname }}"></td>
+                    <td><input type="text" name="Phone" value="{{ Phone }}"></td>
+                    <td><input type="text" name="Description" value="{{ Description }}"></td>
+                    <td><input type="text" name="Serial_no" value="{{ Serial_no }}"></td>
+                    <td><input type="text" name="Purchase_number" value="{{ Purchase_number }}"></td>
+                    <td><input type="text" name="Type" value="{{ Type }}"></td>
+                    <td><input type="text" name="Comments" value="{{ Comments }}"></td>
+                    <td><input type="text" name="Code" value="{{ Code }}"></td>
+                    <td><input type="text" name="Pin" value="{{ Pin }}"></td>
+                    <td><input type="text" name="Complaint_number" value="{{ Complaint_number }}"></td>
+                    <td><input type="text" name="Purchase_date" value="{{ Purchase_date }}"></td>
+                    <td><input type="date" name="Damage_date" value="{{ Damage_date }}"></td>
+                    <td><input type="text" name="Status" value="{{ Status }}"></td>
+                    <td><input type="text" name="Model" value="{{ Model }}"></td>
+                    <td><input type="text" name="Manufacturer" value="{{ Manufacturer }}"></td>
+                    <input type="hidden" value="{{ _ID }}" name="RID">
+                    <input type="hidden" value="{{ CID }}" name="CID">
+                    <td><input type="submit" value="Zapisz"></td>
+                </tr>
+            </form>
+        {{/each}}
+    </table>
+
+    <h1>Konta</h1>
+    <table>
+        <tr>
+            <th>Login</th>
+            <th>Email</th>
+            <th>Haslo</th>
+            <th>Imie</th>
+            <th>Nazwisko</th>
+            <th>Uprawnienia</th>
+        </tr>
+        <tr>
+            <form method="POST" action="/f/edit/konta/insert ">
+                <td><input type="text" name="login" ></td>
+                <td><input type="text" name="email"></td>
+                <td><input type="text" name="password"></td>
+                <td><input type="text" name="imie"></td>
+                <td><input type="text" name="nazwisko"></td>
+                <td><input type="text" name="uprawnienia"></td>
+                <input type="hidden" value="{{ CID }}" name="CID">
+                <td><input type="submit" value="Dodaj"></td>
+            </form>
+        </tr>
+        {{#each Konta}}
+            <form action="/f/edit/konta/update" method="POST">
+                <tr>
+                    <td><input type="text" name="login" value="{{ Login }}"></td>
+                    <td><input type="text" name="email" value="{{ Email }}"></td>
+                    <td><input type="text" name="password" value="{{ Password }}"></td>
+                    <td><input type="text" name="imie" value="{{ Firstname }}"></td>
+                    <td><input type="text" name="nazwisko" value="{{ Lastname }}"></td>
+                    <td><input type="text" name="uprawnienia" value="{{ Permissions }}"></td>
+                    <input type="hidden" name="PID" value="{{ _ID }}">
+                    <input type="hidden" value="{{ CID }}" name="CID">
+                    <td><input type="submit" value="Zapisz"></td>
+                    <td><a href="/f/edit/sccounts/delate?PID={{ _ID }}&CID={{ CID }}">Usuń</a></td>
+                </tr>
+            </form>
+        {{/each}}
+    </table>
+
+    <h1>Okresy</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Start</th>
+                <th>Koniec</th>
+                <th>Plan</th>
+                <th>Konta</th>
+                <th>Raporty</th>
+                <th>Załączniki</th>
+                <th>Powiadomienia</th>
+                <th>Reklamacje</th>
+            </tr>
+        </thead>
+        <form action="/f/edit/okresy/insert" method="POST">
+                <tr>
+                    <td></td>
+                    <td><input type="date" name="start" ></td>
+                    <td><input type="date" name="koniec"></td>
+                    <td><input type="text" name="plan"></td>
+                    <td><input type="number" name="konta"></td>
+                    <td><input type="number" name="raporty"></td>
+                    <td><input type="number" name="zalaczniki"></td>
+                    <td><input type="number" name="powiadomienia"></td>
+                    <td><input type="number" name="reklamacje"></td>
+                    <td><input type="submit" value="Dodaj"></td>
+                    <input type="hidden" name="CID" value="{{ CID }}">
+                </tr>
+            </form>
+        {{#each Okresy}}
+            <form action="/f/edit/okresy/update" method="POST">
+                <tr>
+                    <td>{{ _ID }}</td>
+                    <td><input type="date" name="start" value="{{ Start }}"></td>
+                    <td><input type="date" name="koniec" value="{{ End }}"></td>
+                    <td><input type="text" name="plan" value="{{ Plan }}"></td>
+                    <td><input type="number" name="konta" value="{{ Account }}"></td>
+                    <td><input type="number" name="raporty" value="{{ Report }}"></td>
+                    <td><input type="number" name="zalaczniki" value="{{ Attachment }}"></td>
+                    <td><input type="number" name="powiadomienia" value="{{ Notifications }}"></td>
+                    <td><input type="number" name="reklamacje" value="{{ Complaints }}"></td>
+                    <input type="hidden" name="OID" value="{{ _ID }}">
+                    <input type="hidden" value="{{ Company }}" name="CID">
+                    <td><input type="submit" value="Zapisz"></td>
+                </tr>
+            </form>
+        {{/each}}
+    </table>
+</body>
+</html>

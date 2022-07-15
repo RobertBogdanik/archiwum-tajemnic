@@ -1,0 +1,73 @@
+{
+  "name": "fernn_v8",
+  "version": "0.1.0",
+  "private": true,
+  "homepage": "http://192.168.1.214/",
+  "dependencies": {
+    "@ashvin27/react-datatable": "^1.5.3",
+    "@material-ui/core": "^4.12.3",
+    "@popperjs/core": "^2.10.2",
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^11.1.0",
+    "@testing-library/user-event": "^12.1.10",
+    "aos": "^2.3.4",
+    "axios": "^0.21.1",
+    "base-64": "^1.0.0",
+    "bootstrap-icons": "^1.5.0",
+    "cors": "^2.8.5",
+    "country-data": "0.0.31",
+    "datatables.net": "^1.11.2",
+    "datatables.net-dt": "^1.11.2",
+    "express": "^4.17.1",
+    "faker": "^5.5.3",
+    "jquery": "^3.6.0",
+    "lodash": "^4.17.21",
+    "material-table": "^1.69.3",
+    "moment": "^2.29.1",
+    "react": "^17.0.2",
+    "react-bootstrap": "^1.6.3",
+    "react-cookies": "^0.1.1",
+    "react-data-table-component": "^7.2.1",
+    "react-dom": "^17.0.2",
+    "react-helmet": "^6.1.0",
+    "react-moment": "^1.1.1",
+    "react-native-device-info": "^8.3.1",
+    "react-native-hr": "^1.1.4",
+    "react-radio-group": "^3.0.3",
+    "react-router-dom": "^5.2.1",
+    "react-script-tag": "^1.1.2",
+    "react-scripts": "4.0.3",
+    "react-table": "^7.7.0",
+    "styled-components": "^5.3.1",
+    "universal-cookie": "^4.0.4",
+    "web-vitals": "^1.0.1"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "css-loader": "^6.4.0",
+    "style-loader": "^3.3.0"
+  }
+}

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pl/PL">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" href="/img/logo.png">
+    <title>Fernn - Login</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+   
+    <style>
+        body{
+            width: 100%;
+            background-color: #4e73df;
+        }
+        @media (min-width: 992px){
+            .bg-login-image, .bg-login-image img{
+                width: 475px !important;
+                height: 475px  !important;
+            }
+        }
+        @media (min-width: 	1400px){
+            .bg-login-image, .bg-login-image img{
+                width: 550px  !important;
+                height: 550px !important;
+            }
+        }
+        
+        .bg-login-image img{
+            /*background: url(https://source.unsplash.com/K4mSJ7kc0As/600x800);
+            background-position: center;
+            background-size: cover;*/
+            position:absolute;
+            opacity: 0;
+            animation: ImgAnim 20s ease infinite 0s;
+        }
+        .bg-login-image img[class=a]{
+            width: 100%;
+            animation-delay: 5s; 
+        }
+        .bg-login-image img[class=b]{
+            animation-delay: 10s; 
+        }
+        .bg-login-image img[class=c]{
+            animation-delay: 15s;
+        }
+
+        @keyframes ImgAnim{
+            0% { opacity: 0;}
+            13% { opacity: 1;}
+            25% { opacity: 1;}
+            37% { opacity: 0;}
+            100% { opacity: 0;}
+        }
+    </style>
+</head>
+<body>
+   <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-xl-10 col-lg-12 col-md-9">
+                <div class="card o-hidden border-0 shadow-lg my-5">
+                    <div class="card-body p-0">
+                        <div class="row">
+                            <div class="col-lg-6 d-none d-lg-block bg-login-image">
+                                <img src="../img/dog1.jpg" alt="Photo by phloge from Pexels" class="a">
+                                <img src="../img/dog2.jpg" alt="Photo by Tommes Frites from Pexels" class="b">
+                                <img src="../img/dog3.jpg" alt="Photo by Dorte from Pexels" class="c">
+                                <img src="../img/dog4.jpg" alt="Photo by Apunto Group Agencia de publicidad from Pexels" class="d"> 
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="p-5">
+                                    <div class="text-center">
+                                        <h1 class="h4 text-gray-900 mb-4">Witamy!</h1>
+                                    </div>
+                                    <form class="user text-center" method="POST">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control form-control-user" name="login" placeholder="Wpisz Email lub login" autocomplete="username">
+                                        </div><br>
+                                        <div class="form-group">
+                                            <input type="password" class="form-control form-control-user" name="password" placeholder="Hasło" autocomplete="current-password">
+                                        </div><br>
+                                        <input type="submit" class="btn btn-outline-primary" value="Login">
+                                    </form>
+                                    <hr>
+                                    <div class="text-center">
+                                        <a class="small" href="/login/forgotpassword">Zapomniałeś hasła?</a><br>
+                                        <a class="small" href="/"><-- Powrót</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

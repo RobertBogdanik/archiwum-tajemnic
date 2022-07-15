@@ -1,0 +1,45 @@
+ body{
+    width: 100%;
+    /* background-color: #4e73df;  */
+    /* overflow: hidden; */
+}
+@media (min-width: 992px){
+    .bg-login-image, .bg-login-image img{
+        width: 475px !important;
+        height: 475px  !important;
+    }
+}
+@media (min-width: 	1400px){
+    .bg-login-image, .bg-login-image img{
+        width: 550px  !important;
+        height: 550px !important;
+    }
+}
+
+.bg-login-image img{
+    position:absolute;
+    opacity: 0;
+    animation: ImgAnim 20s ease infinite 0s;
+}
+.bg-login-image img[class=a]{
+    width: 100%;
+    animation-delay: 5s; 
+}
+.bg-login-image img[class=b]{
+    animation-delay: 10s; 
+}
+.bg-login-image img[class=c]{
+    animation-delay: 15s;
+}
+
+@keyframes ImgAnim{
+    0% { opacity: 0;}
+    13% { opacity: 1;}
+    25% { opacity: 1;}
+    37% { opacity: 0;}
+    100% { opacity: 0;}
+}
+
+.small:hover{
+    color: #4e73df;
+}

@@ -1,0 +1,27 @@
+# dependencies
+/api.fernn.pl/node_modules
+/api.fernn.pl/public/attachment
+/api.fernn.pl/public/logo
+/api.fernn.pl/public/thumbnail
+
+/fernn.pl/node_modules
+
+/sapi.fernn.pl/node_modules
+/service.fernn.pl/node_modules
+
+# testing
+/coverage
+
+# production
+/build
+
+# misc
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*

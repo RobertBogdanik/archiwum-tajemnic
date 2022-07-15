@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="pl/PL">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fernn - Games</title>
+    <link rel="icon" href="/img/logo.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <style>
+        table{
+            position:absolute;
+            width: 160px;
+            height: 160px;
+            margin: auto;
+            margin-left: 68px;
+            margin-top: 36px;
+            z-index: 1;
+        }
+        td{
+            width: 50px;
+            height: 50px;
+            background-color: rgb(226, 226, 226);
+            text-align: center;
+            font-size: 25px;
+            border: 5px solid #6b6b6b;
+        }
+        .img{
+            display: flex;
+            position:absolute;
+            z-index: 10;
+            margin-top: 20px;
+            margin-left: 55px;
+        }
+        .content{
+            margin-top: 36px;
+            width: 300px;
+            height: 200px !important;
+            margin: auto;
+            text-align: center;
+        }
+        h4{
+            margin-top: 230px;
+        }
+        .p{
+            margin-left: 5px;
+            margin-right: 5px;
+            box-sizing: border-box;
+        }
+        body{
+            background-color: rgb(252, 252, 252);
+        }
+        .all{
+            margin: auto;
+            max-width: 1500px;
+        }
+        .navbar-brand {
+            color: #0275d8 !important;
+            font-size: 25px !important;
+        }       
+    </style>
+</head>
+<body>
+    <div class="all">
+        <nav class="navbar navbar-expand-lg navbar-light">
+          <div class="container-fluid">
+            <a class="navbar-brand" href="/a/home">Fernn</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+              <ul class="navbar-nav">
+                <li class="nav-item">
+                  <a class="nav-link" href="/a/home">Powrót do pracy</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/g">Lista gier</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link active" href="/g/tictactoeauto">Gra</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/g/ranking">Ranking</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+        <div class="content">
+            <h1>Wynik:</h1>
+            <h3 id="h3">W trakcie gry</h3>
+            <a href="/g/tictactoeauto" class="btn btn-danger" id="bnt">Restart</a>
+            <div class="ttable">
+                <table>
+                    <img src="" class="img" id="img" alt="">
+                    <img src="" class="img" id="imgb" alt="">
+                    <tr>
+                        <td onclick="change(0)" id="raca"></td>
+                        <td onclick="change(1)" id="racb"></td>
+                        <td onclick="change(2)" id="racc"></td>
+                    </tr>
+                    <tr>
+                        <td onclick="change(3)" id="rbca"></td>
+                        <td onclick="change(4)" id="rbcb"></td>
+                        <td onclick="change(5)" id="rbcc"></td>
+                    </tr>
+                    <tr>
+                        <td onclick="change(6)" id="rcca"></td>
+                        <td onclick="change(7)" id="rccb"></td>
+                        <td onclick="change(8)" id="rccc"></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="p">
+                <h4>Cel gry:</h4>
+                <p>W takiej samej liczbie ruchów jak przeciwnik doprowadź do ułożenia trzech "o" w jednej lini, kolumnie lub po przekątnej.</p>
+            </div>
+        </div> 
+    </div>
+    <script>
+        var win = [
+            [0, 1, 2],
+            [3, 4, 5],
+            [6, 7, 8],
+            [0, 3, 6],
+            [1, 4, 7],
+            [2, 5, 8],
+            [2, 4, 6],
+            [0, 4, 8]
+        ];
+        var zaj = ["", "", "", "", "", "", "", "", ""];
+        var pol=["raca", "racb", "racc", "rbca", "rbcb", "rbcc", "rcca", "rccb", "rccc"];
+        var src=["/img/l1bt.png", "/img/l2bt.png", "/img/l3bt.png", "/img/c1bt.png", "/img/c2bt.png", "/img/c3bt.png", "/img/uk2bt.png", "/img/uk1bt.png"];
+        var gra = getRandomInt(0, 8);
+        var tp=[];
+        var sprawdz=0;
+        var kg=0;
+        var dopasowanie = 0;
+        var pole;
+        var rruch = true;
+
+        function change(a){
+            // czy pole jest wolne
+            if(zaj[a]=="" && rruch){
+                zaj[a]="o";
+                document.getElementById(pol[a]).innerHTML="O";
+            }else{ 
+                console.log("error"); 
+                return false; 
+            }
+
+            // czy schemat jest nadal poprawny
+            dopasowanie==0;
+            for(var d =0; d<3;d++){
+                // zliczanie pul zgodnych z aktualnym chematem
+                if(zaj[win[gra][d]]=="" || zaj[win[gra][d]]=="x"){ dopasowanie++; }
+            }
+            if(dopasowanie!=3){
+                dopasowanie==0;
+                nowe();
+                return false;
+            }else{
+                dopasowanie==0;
+                ruch();
+                return false;
+            }  
+        }
+
+        function nowe(){
+            // sprawdz czy uzytkownik niewygrywa
+            for(var b = 0; b<win.length; b++){
+                kg=0;
+                for(var c = 0; c<win[b].length; c++){
+                    pole = win[b][c];
+                    if(zaj[pole]=="o"){ kg++; }
+                }
+                if(kg==3){
+                    remis();
+                    return true;
+                }
+                if(kg==2){
+                    if(sprawdz!=1){
+                        kg=0;
+                        for(var c = 0; c<win[b].length; c++){
+                            pole = win[b][c];
+                            if(zaj[pole]==""){ staw(pole); return false; }
+                        }
+                    }
+                }
+            }
+            if(zaj[0]=="o" && zaj[4]=="o" && zaj[8]=="o"){ remis(); return true; }
+            if(zaj[2]=="o" && zaj[4]=="o" && zaj[6]=="o"){ remis(); return true; }
+
+            // wyszukiwanie najlepszej opcji
+            var tszpr = 0;
+            var szuk ="";
+            for(var a=0; a<win.length; a++){
+                tszpr = 0;
+                // indexowanie możliwości wygrania
+                for(var b =0; b<win[a].length; b++){
+                    szuk = win[a][b];
+                    if(zaj[szuk]==""){ tszpr++; }
+                    if(zaj[szuk]=="o"){ tszpr=-50; }        
+                }
+                if(a==0){ sprawdz=tszpr;
+                }else{
+                    // komputer wygral
+                    if(tszpr==0){ koniec(2); return false; }
+
+                    // wybranie najbardziej zoptymalizowanej gry
+                    if(tszpr>0){
+                        if(sprawdz>=0){
+                            if(sprawdz>tszpr){ sprawdz=tszpr; }
+                        }else{ sprawdz=tszpr; }  
+                    }
+                }
+            }
+
+            // sprawdz czy jeszcze jakies pole zostalo
+            var zostala=false;
+            for(var a=0; a<zaj.length; a++){
+                if(zaj[a]==""){ zostala=true; }
+            }
+            if(!zostala){ koniec(3); return false; }
+
+            // czy jeszcze mozna wygrac
+            if(sprawdz>0){
+                // tak - ponowny index i wyszukaj odpowiegniego
+                for(var a=0; a<win.length; a++){
+                    tszpr = 0;
+                    for(var b =0; b<win[a].length; b++){
+                        szuk = win[a][b]
+                        if(zaj[szuk]==""){ tszpr++; }
+                        if(zaj[szuk]=="o"){ tszpr=-50; }        
+                    }
+
+                    // znaleziono index
+                    if(tszpr==sprawdz){ gra=a; }
+                    tszpr = 0;
+                }
+                ruch();
+            }else{ kontroluj(); }
+        }
+
+        function kontroluj(){
+            // sprawdz czy uzytkownik niewygrywa
+            for(var b = 0; b<win.length; b++){
+                kg=0;
+                for(var c = 0; c<win[b].length; c++){
+                    pole = win[b][c];
+                    if(zaj[pole]=="o"){ kg++; }
+                }
+                if(kg==3){
+                    remis();
+                    return true;
+                }
+                if(kg==2){
+                    if(sprawdz!=1){
+                        kg=0;
+                        for(var c = 0; c<win[b].length; c++){
+                            pole = win[b][c];
+                            if(zaj[pole]==""){ staw(pole); return false; }
+                        }
+                    }
+                }
+            }
+            if(zaj[0]=="o" && zaj[4]=="o" && zaj[8]=="o"){ remis(); return true; }
+            if(zaj[2]=="o" && zaj[4]=="o" && zaj[6]=="o"){ remis(); return true; }
+
+            // wykonaj pusty ruch
+            var tab=[];
+            for(var a=0; a<zaj.length;a++){
+                if(zaj[a]==""){ tab.push(a); }
+            }
+            tab=tab[getRandomInt(0, tab.length)];
+            pustyruch(tab);
+        }
+
+        async function ruch(){
+            // sprawdz czy uzytkownik niewygrywa
+            for(var b = 0; b<win.length; b++){
+                kg=0;
+                for(var c = 0; c<win[b].length; c++){
+                    pole = win[b][c];
+                    if(zaj[pole]=="o"){ kg++; }
+                }
+                if(kg==3){
+                    remis();
+                    return true;
+                }
+                if(kg==2){
+                    if(sprawdz!=1){
+                        kg=0;
+                        for(var c = 0; c<win[b].length; c++){
+                            pole = win[b][c];
+                            if(zaj[pole]==""){ await staw(pole); return false; }
+                        }
+                    }
+                }
+            }
+            if(zaj[0]=="o" && zaj[4]=="o" && zaj[8]=="o"){ remis(); return true; }
+            if(zaj[2]=="o" && zaj[4]=="o" && zaj[6]=="o"){ remis(); return true; }
+
+
+            // własny ruch
+            tp=[]
+            var wolne = 0
+            for(var c =0; c<3; c++){
+                var p = win[gra][c];
+                if(zaj[p]==""){ tp.push(p); }
+                if(zaj[p]=="o"){ nowe();  return false; }
+            }   
+            wolne = getRandomInt(0, tp.length);
+            tp=tp[wolne];
+            await staw(tp); 
+
+            // czy komp wygral
+            for(var b = 0; b<win.length; b++){
+                kg=0;
+                for(var c = 0; c<win[b].length; c++){
+                    pole = win[b][c];
+                    if(zaj[pole]=="x"){ kg++; }
+                }
+
+                // wygral
+                if(kg==3){ koniec(2); }
+            }
+        }
+
+        async function staw(a){
+            rruch=false;
+            await sleep(getRandomInt(200, 1000));
+            rruch=true;
+            if(zaj[a]==""){
+                document.getElementById(pol[a]).innerHTML="x";
+                zaj[a]="x";
+            }else{ console.log("errors"); return false; }
+        }
+
+        async function pustyruch(a){
+            // jeśli przeciwnik wygrywa
+            for(var b = 0; b<win.length; b++){
+                kg=0;
+                for(var c = 0; c<win[b].length; c++){
+                    pole = win[b][c];
+                    if(zaj[pole]=="o"){ kg++; }
+                }
+                if(kg==3){
+                    remis();
+                    return true;
+                }
+                if(kg==2){
+                    if(sprawdz!=1){
+                        kg=0;
+                        for(var c = 0; c<win[b].length; c++){
+                            pole = win[b][c];
+                            if(zaj[pole]==""){ staw(pole); return false; }
+                        }
+                    }
+                }
+            }
+
+            // jesli niewygrywa
+            await staw(a);
+        }
+
+        function remis(){   
+            // sprawdz czy jeszcze jakies pole zostalo
+            var zostala=false;
+            for(var a=0; a<zaj.length; a++){
+                if(zaj[a]==""){ zostala=true; }
+            }
+            if(!zostala){ koniec(1); return false; }
+
+            // sprawdz czy uzytkownik niewygrywa
+            for(var b = 0; b<win.length; b++){
+                kg=0;
+                for(var c = 0; c<win[b].length; c++){
+                    pole = win[b][c];
+                    if(zaj[pole]=="o"){ kg++; }
+                }
+                if(kg==3){ remisuj(); return false; }
+            }
+            if(zaj[0]=="o" && zaj[4]=="o" && zaj[8]=="o"){ remisuj(); return true; }
+            if(zaj[2]=="o" && zaj[4]=="o" && zaj[6]=="o"){ remisuj(); return true; }
+
+            ruch();
+        }
+
+        async function remisuj() {
+            // wyszukiwanie najlepszej opcji
+            var tszpr = 0;
+            var szuk ="";
+            for(var a=0; a<win.length; a++){
+                tszpr = 0;
+                // indexowanie możliwości wygrania
+                for(var b =0; b<win[a].length; b++){
+                    szuk = win[a][b];
+                    if(zaj[szuk]==""){ tszpr++; }
+                    if(zaj[szuk]=="o"){ tszpr=-50; }        
+                }
+                if(a==0){ sprawdz=tszpr;
+                }else{
+                    // komputer wygral
+                    if(tszpr==0){ koniec(3); return false; }
+
+                    // wybranie najbardziej zoptymalizowanej gry
+                    if(tszpr>0){
+                        if(sprawdz>=0){
+                            if(sprawdz>tszpr){ sprawdz=tszpr; }
+                        }else{ sprawdz=tszpr; }  
+                    }
+                }
+            }
+
+            // czy jeszcze mozna wygrac
+            if(sprawdz==1){
+                // tak - ponowny index i wyszukaj odpowiegniego
+                for(var a=0; a<win.length; a++){
+                    tszpr = 0;
+                    for(var b =0; b<win[a].length; b++){
+                        szuk = win[a][b];
+                        if(zaj[szuk]==""){ tszpr++; }
+                        if(zaj[szuk]=="o"){ tszpr=-50; }        
+                    }
+
+                    // znaleziono index
+                    if(tszpr==1){ gra=a; }
+                }
+                tp=[];
+                var wolne = 0;
+                for(var c =0; c<3; c++){
+                    var p = win[gra][c];
+                    if(zaj[p]==""){ tp.push(p); }
+                }   
+                wolne = getRandomInt(0, tp.length);
+                tp=tp[wolne];
+                await staw(tp)
+
+                // czy komp wygral
+                for(var b = 0; b<win.length; b++){
+                    kg=0;
+                    for(var c = 0; c<win[b].length; c++){
+                        pole = win[b][c];
+                        if(zaj[pole]=="x"){ kg++; }
+                    }
+                    // wygral
+                    if(kg==3){ koniec(4); return false; }
+                }
+                koniec(1);
+                return false;
+            }
+            koniec(1);
+            return false;
+        }
+        function koniec(a){
+            if(a==1){
+                for(var b = 0; b<win.length; b++){
+                    kg=0;
+                    for(var c = 0; c<win[b].length; c++){
+                        pole = win[b][c];
+                        if(zaj[pole]=="o"){ kg++; }
+                    }
+                    if(kg==3){  document.getElementById("img").setAttribute("src", src[b]); }
+                }
+                document.getElementById("h3").innerHTML="Wygrałeś";
+            } 
+            if(a==2){
+                for(var b = 0; b<win.length; b++){
+                    kg=0;
+                    for(var c = 0; c<win[b].length; c++){
+                        pole = win[b][c];
+                        if(zaj[pole]=="x"){ kg++; }
+                    }
+                    if(kg==3){  document.getElementById("img").setAttribute("src", src[b]); }
+                }
+                document.getElementById("h3").innerHTML="Przegrałeś";
+            } 
+            if(a==3){
+                document.getElementById("h3").innerHTML="Remis - koniec pól";
+            }
+            if(a==4){
+                for(var b = 0; b<win.length; b++){
+                    kg=0;
+                    for(var c = 0; c<win[b].length; c++){ pole = win[b][c]; if(zaj[pole]=="o"){ kg++; } }
+                    if(kg==3){  document.getElementById("img").setAttribute("src", src[b]); }
+                }
+                for(var b = 0; b<win.length; b++){
+                    kg=0;
+                    for(var c = 0; c<win[b].length; c++){ pole = win[b][c]; if(zaj[pole]=="x"){ kg++; } }
+                    if(kg==3){  document.getElementById("imgb").setAttribute("src", src[b]); }
+                }
+                document.getElementById("h3").innerHTML="Remis";
+            }
+            document.getElementById("bnt").innerHTML="Zagraj ponownie";
+        }
+
+        function getRandomInt(min, max) {
+            min = Math.ceil(min);
+            max = Math.floor(max);
+            return Math.floor(Math.random() * (max - min)) + min;
+        }
+        function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+</body>
+</html>
